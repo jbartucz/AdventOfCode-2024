@@ -12,7 +12,7 @@ left.sort()
 right.sort()
 
 totalsum = 0
-for i in range(len(left)):
-    totalsum += abs(left[i] - right[i])
+for l in left:
+    totalsum += l * right.count(l)
 
 print(totalsum)
