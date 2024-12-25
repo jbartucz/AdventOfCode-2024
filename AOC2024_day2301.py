@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 G = nx.Graph()
 
-nodes = set()
+tnodes = set()
 
 with open("AOC2024_day23.txt") as finpt:
     for inpt in finpt:
@@ -12,18 +12,23 @@ with open("AOC2024_day23.txt") as finpt:
         G.add_node(left)
         G.add_node(right)
         G.add_edge(left,right)
-        nodes.add(left)
-        nodes.add(right)
+        if 't' in left:
+            tnodes.add(left)
+        if 't' in right:
+            tnodes.add(right)
 
 # nx.draw(G, with_labels=True, font_weight='bold')
 # plt.show()
 
-a = nx.triangles(G)
-print(a)
+all_cliques= nx.enumerate_all_cliques(G)
+triad_cliques=[x for x in all_cliques if len(x)==3 ]
 
+# print(triad_cliques)
 totalnum = 0
-for t in a:
-    if 't' in t:
-        totalnum += a[t]
+for tc in triad_cliques:
+    for n in tc:
+        if n[0] == 't':
+            totalnum += 1
+            break
 
 print(totalnum)
